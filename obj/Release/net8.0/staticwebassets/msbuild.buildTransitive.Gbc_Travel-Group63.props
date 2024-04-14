@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Gbc_Travel-Group63.props" />
+</Project>

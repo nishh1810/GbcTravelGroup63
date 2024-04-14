@@ -1,0 +1,81 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Listing";
+}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+    }
+
+    h1 {
+        color: #3498db;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: inline-block;
+        margin: 20px;
+        position: relative;
+        transition: transform 0.3s;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .option-description {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #fff;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        z-index: 1;
+    }
+
+    li:hover {
+        transform: scale(1.1);
+    }
+</style>
+
+<h1>Choose an Option to Add</h1>
+
+<ul>
+    <li>
+        <a asp-area="" asp-controller="FlightsControllercs" asp-action="Create">Add a Flight</a>
+    </li>
+
+    <li>
+        <a asp-area="" asp-controller="Car" asp-action="Create">Add a Car</a>
+    </li>
+
+    <li>
+        <a asp-area="" asp-controller="Hotels" asp-action="Create">Add a Property</a>
+    </li>
+</ul>
+
+<script>
+    function showDescription(option) {
+        
+    }
+
+    function hideDescription() {
+        
+    }
+</script>
+

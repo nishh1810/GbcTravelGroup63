@@ -1,0 +1,47 @@
+@model Gbc_Travel_Group63.Models.Booking
+
+<!-- Display Flight/Hotel/Car details here -->
+
+<form method="post" asp-action="ConfirmBooking" asp-controller="Booking">
+    <h2>Booking Details</h2>
+    <p>Booking Type: @Model.BookingType</p>
+    <p>Item ID: @Model.ItemId</p>
+    <!-- Add other necessary details -->
+
+    <label for="isGuest">I'm a Guest</label>
+    <input type="checkbox" id="isGuest" name="isGuest" onclick="toggleGuest()" asp-for="IsGuest" />
+    <div hidden="hidden">
+  @Html.EditorFor(model => model.BookingId)
+  @Html.EditorFor(model => model.BookingType)
+  @Html.EditorFor(model => model.ItemId)
+    </div>
+    <div id="guestDetails">
+        <!-- Display guest details if isGuest is true -->
+        @if (Model.IsGuest)
+        {
+            <p>Is Guest @Model.IsGuest</p>
+        }
+        else
+        {
+            <label for="userID">User ID:</label>
+            <input type="text" id="userID" name="userID" required />
+        }
+    </div>
+
+    <button type="submit">Submit Booking</button>
+
+    <!-- Include JavaScript to toggle isGuest -->
+    <script>
+        function toggleGuest() {
+            var guestDetails = document.getElementById("guestDetails");
+            var isGuestCheckbox = document.getElementById("isGuest");
+
+            if (isGuestCheckbox.checked) {
+                guestDetails.innerHTML = "<p>Guest User ID: Automatically generated</p>";
+            } else {
+                guestDetails.innerHTML = '<label for="userID">User ID:</label>' +
+                                          '<input type="text" id="userID" name="userID" required />';
+            }
+        }
+    </script>
+</form>

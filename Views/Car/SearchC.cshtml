@@ -1,0 +1,71 @@
+﻿@model List<Car> // Assuming your model is a List of Car
+
+@{
+    ViewData["Title"] = "Search Cars";
+}
+
+<h2>Search Cars</h2>
+
+<form id="car-search-form" class="search-form" asp-action="SearchC" asp-controller="Car" method="get">
+    <div>
+        <label for="location">Location:</label>
+        <input type="text" name="location" value="@ViewData["Location"]" />
+    </div>
+    <div>
+        <label for="brand">Brand:</label>
+        <input type="text" name="brand" value="@ViewData["Brand"]" />
+    </div>
+    <div>
+        <button type="submit">Search</button>
+    </div>
+</form>
+
+@if ((bool)ViewData["SearchPerformed"])
+{
+    <h3>Search Results:</h3>
+    @if (Model.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Brand</th>
+                    <th>Year</th>
+                    <th>Color</th>
+                    <th>PricePerDay</th>
+                    <th>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort by Price
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="@Url.Action("SearchC", new { sortDirection = "low_to_high" })">Low to High</a>
+                                <a class="dropdown-item" href="@Url.Action("SearchC", new { sortDirection = "high_to_low" })">High to Low</a>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>@car.City</td>
+                        <td>@car.CarBrand</td>
+                        <td>@car.Year</td>
+                        <td>@car.Color</td>
+                        <td>@car.PricePerDay</td>
+                        <!-- Add other fields as needed -->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No cars found.</p>
+    }
+}
+<div>
+    <a asp-action="Index" asp-controller="Car">View Full List</a>
+</div>

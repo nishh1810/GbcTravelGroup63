@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAuJMdN2J4UEGe/PsQhyMTtQAAAAACAAAAAAAQZgAAAAEAACAAAAB9B9PToxlv7JLCCyNKTTEcjgBTg5fVqcfJ1r+lz37EHAAAAAAOgAAAAAIAACAAAACk7oxdZV5Cyvc33GIUd5tA3ivNsaEerPNpNqzHJn2YMYAAAAAT/RW1jKwA1irC5BKj7bcScd3Oy+dRTaqWf8ve2e5jZwlhasjOgxX/BgIql12Q2Chg7CoFMKxeFPcF1snZeYA6OD7Nhaiwj+Uok0lCbXvK4CLy2ixZsmdz4/rCYWDxW5NxnhCJcNntObg01DkOad6ELZDjb2kJC7c0VLOSfNC5vkAAAAAaMLCOC4I8VbmcCBbJGaUWcJN+k6STltwRhsJigtUssg3U3rG61lWkNmg1tZRpKcig+1uWowb1Ymx3OzyI84Qq</EncryptedPassword>
+    <History>True|2024-04-13T00:29:04.4953082Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=mytravelapp63dbserver.database.windows.net,1433%3bInitial Catalog=GbcTravel63db%3bUser ID=travelappadmin%3bPassword=Nishita%401810</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Gbc_Travel_Group63.Data.ApplicationDbContext">
+      <Value>Data Source=mytravelapp63dbserver.database.windows.net,1433%3bInitial Catalog=GbcTravel63db%3bUser ID=travelappadmin%3bPassword=Nishita%401810</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

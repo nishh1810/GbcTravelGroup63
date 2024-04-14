@@ -1,0 +1,26 @@
+<!-- Signup.cshtml -->
+@model Gbc_Travel_Group63.Models.SignupViewModel
+
+<h2>Sign Up</h2>
+
+<form asp-action="Signup" method="post">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+    </div>
+    <div>
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" />
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" asp-for="IsAdmin" /> Register as Admin
+        </label>
+    </div>
+    <button type="submit">Sign Up</button>
+</form>

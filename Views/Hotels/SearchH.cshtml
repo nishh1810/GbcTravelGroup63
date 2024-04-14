@@ -1,0 +1,82 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Hotel>
+
+<h2>Hotel Search Results</h2>
+<form id="hotel-search-form" class="search-form" asp-controller="Hotels" asp-action="SearchH" method="get">
+    <div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="location" name="location" placeholder="Enter location" required>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="pricePerDay">Price per Day</label>
+            <input type="number" class="form-control" id="pricePerDay" name="pricePerDay" placeholder="Enter price per day" required>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="roomType">Room Type</label>
+            <select class="form-control" id="roomType" name="roomType" required>
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+
+            </select>
+        </div>
+    </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Search Hotels</button>
+    </div>
+</form>
+@if (Model.Any())
+{
+    <table>
+        <!-- Add table header based on your Hotel model properties -->
+        <thead>
+            <th>Hotel Name</th>
+            <th>Location</th>
+            <th>Room Type</th>
+            <th>Price Per Night</th>
+            <th>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort by Price
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="@Url.Action("SearchH", new { sortDirection = "low_to_high" })">Low to High</a>
+                    <a class="dropdown-item" href="@Url.Action("SearchH", new { sortDirection = "high_to_low" })">High to Low</a>
+                </div>
+            </div>
+            </th>
+        </thead>
+        <tbody>
+            @foreach (var hotel in Model)
+            {
+                <!-- Add table cells based on your Hotel model properties -->
+                <tr>
+                    <td>@hotel.HotelName</td>
+                    <td>@hotel.Location</td>
+                    <td>@hotel.RoomType</td>
+                    <td>@hotel.PricePerNight</td>
+                    <!-- Add other cells as needed -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No matching hotels found.</p>
+}
+<div>
+    <a asp-action="Index" asp-controller="Hotels">View Full List</a>
+</div>
+

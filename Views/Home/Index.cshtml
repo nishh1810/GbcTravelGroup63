@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Guru</title>
+    
+    <style>
+        /* Add your styling here */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #3498db;
+            padding: 0;
+            text-align: center;
+        }
+        .navbar{
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        nav {
+            background-color: white;
+            color: black;
+            padding: 6px;
+            text-align: center;
+        }
+
+            nav a {
+                color: black;
+                text-decoration: none;
+                padding: 10px;
+                margin: 0 10px;
+            }
+
+        section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #3498db;
+        }
+
+        form {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        input[type="text"], select {
+            padding: 10px;
+            width: 200px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            
+        }
+    </style>
+</head>
+    <body>
+        <p>You have visited this page @ViewData["VisitCount"] times</p>
+        <p class="justify-content-center">Get whole list of available options</p>
+        <nav>
+            <a asp-area="" asp-controller="FlightsControllercs" asp-action="Index">Flights</a>
+            <a asp-area="" asp-controller="Hotels" asp-action="Index">Hotels</a>
+            <a asp-area="" asp-controller="Car" asp-action="Index">Cars</a>
+        </nav>
+        <div class="container">
+            <p>Get Personalised Options</p>
+            <form class="d-flex" asp-controller="Home" asp-action="GeneralSearch" method="get">
+                <input class="form-control" type="text" placeholder="Search" name="searchString" />
+                <select class="form-control btn btn-secondary dropdown-toggle" name="searchType">
+                    <option value="Hotels">Hotels</option>
+                    <option value="Flights">Flights</option>
+                    <option value="Cars">Cars</option>
+                </select>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+        
+        
+    </body>
+</html>
+

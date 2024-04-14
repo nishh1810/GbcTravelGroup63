@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Gbc_Travel_Group63.Models.Hotel>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Hotels</h1>
+
+@if (Model.Any())
+{
+    <form id="hotel-search-form" class="search-form" asp-controller="Hotels" asp-action="SearchH" method="get">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Enter location" required>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="pricePerDay">Price per Day</label>
+                <input type="number" class="form-control" id="pricePerDay" name="pricePerDay" placeholder="Enter price per day" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="roomType">Room Type</label>
+                <select class="form-control" id="roomType" name="roomType" required>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Search Hotels</button>
+        </div>
+    </form>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HotelId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HotelName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StarRating)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PricePerNight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsPetFriendly)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RoomType)
+                </th>
+                <th>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sort by Price
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="@Url.Action("Index", new { sortDirection = "low_to_high" })">Low to High</a>
+                            <a class="dropdown-item" href="@Url.Action("Index", new { sortDirection = "high_to_low" })">High to Low</a>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HotelId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HotelName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StarRating)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PricePerNight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPetFriendly)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoomType)
+                    </td>
+                    <td>
+                        <a asp-action="" asp-route-id="@item.HotelId" class="btn btn-danger">Details</a> <!-- Link to delete a project -->
+                        <a asp-controller="Booking" asp-action="Book" asp-route-bookingType="Hotel" asp-route-itemId="@item.HotelId" class="btn btn-primary">Book</a>
+                        @if (User.Identity.IsAuthenticated && await UserManager.IsInRoleAsync(await UserManager.FindByEmailAsync(User.Identity.Name), "Admin")){
+                        <a asp-controller="Hotels" asp-action="Delete" asp-route-Id="@item.HotelId" class="btn btn-warning">Delete</a>
+                        <a asp-controller="Hotels" asp-action="Edit" asp-route-id="@item.HotelId" class="btn btn-info">Edit</a> <!-- Link to view project details -->
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No Hotels Available</p>
+}
+@if (User.Identity.IsAuthenticated && await UserManager.IsInRoleAsync(await UserManager.FindByEmailAsync(User.Identity.Name), "Admin")){
+
+<p><a class=" btn btn-primary nav-link text-black" asp-area="" asp-controller="Hotels" asp-action="Create">Add a Property</a></p>
+}

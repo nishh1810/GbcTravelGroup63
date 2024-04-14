@@ -1,0 +1,22 @@
+<!-- Profile.cshtml -->
+@model Gbc_Travel_Group63.Models.ApplicationUser
+
+<form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="FullName">Full Name:</label>
+        <input type="text" id="FullName" name="FullName" class="form-control" value="@Model.FullName" />
+    </div>
+    <div class="form-group">
+        <label for="ContactNumber">Contact Number:</label>
+        <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" value="@Model.ContactNumber" />
+    </div>
+    <div class="form-group">
+        <label for="Preferences">Preferences:</label>
+        <input type="text" id="Preferences" name="Preferences" class="form-control" value="@Model.Preferences" />
+    </div>
+    <div class="form-group">
+        <label for="ProfilePicture">Profile Picture:</label>
+        <input type="file" id="ProfilePicture" name="ProfilePicture" class="form-control-file" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update Profile</button>
+</form>

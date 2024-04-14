@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Gbc_Travel_Group63.Models.Flights>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Flights</h1>
+
+@if (Model.Any())
+{
+    <form id="flight-search-form" class="search-form" asp-controller="FlightsControllercs" asp-action="SearchF" method="get">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="departureCity">Departure City</label>
+                    <input type="text" class="form-control" id="departureCity" name="departureCity" placeholder="Enter departure city" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="arrivalCity">Arrival City</label>
+                    <input type="text" class="form-control" id="arrivalCity" name="arrivalCity" placeholder="Enter arrival city" required>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="departureDate">Departure Date</label>
+                    <input type="date" class="form-control" id="departureDate" name="departureDate" required>
+                </div>
+            </div>
+        </div>
+        <div class="fform-group">
+            <button class="btn btn-primary" type="submit">Search Flights</button>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FlightNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartureCity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArrivalCity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartureDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartureTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArrivalTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumberOfPassengers)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalSeats)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sort by Price
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="@Url.Action("Index", new { sortDirection = "low_to_high" })">Low to High</a>
+                            <a class="dropdown-item" href="@Url.Action("Index", new { sortDirection = "high_to_low" })">High to Low</a>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                       @item.FlightNumber
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartureCity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArrivalCity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartureDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartureTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArrivalTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfPassengers)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalSeats)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-action="" asp-route-id="@item.FlightNumber" class="btn btn-danger">Details</a> <!-- Link to delete a project -->
+                        <a id="book-flight-btn" asp-controller="Booking" asp-action="Book" asp-route-bookingType="Flight" asp-route-itemId="@item.FlightNumber" class="btn btn-primary">Book</a>
+                        @if (User.Identity.IsAuthenticated && await UserManager.IsInRoleAsync(await UserManager.FindByEmailAsync(User.Identity.Name), "Admin")){
+                            <a asp-action="Delete" asp-route-Id="@item.FlightNumber" class="btn btn-warning">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.FlightNumber" class="btn btn-info">Edit</a> <!-- Link to view project details -->
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No Flights available.</p>
+}
+@if (User.Identity.IsAuthenticated && await UserManager.IsInRoleAsync(await UserManager.FindByEmailAsync(User.Identity.Name), "Admin")){
+
+<p><a class=" btn btn-primary nav-link text-black" asp-area="" asp-controller="FlightsControllercs" asp-action="Create">Add a Flight</a></p>
+}
